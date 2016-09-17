@@ -16,19 +16,19 @@ import { TextureComponent } from './objects/texture.component';
 import { SkyboxComponent } from './objects/skybox.component';
 
 @NgModule({
-  declarations: [
-    ThreeComponent,
-    RendererComponent,
-    SceneComponent,
-    PerspectiveCameraComponent,
-    PointLightComponent,
-    SphereComponent,
-    VRControlsComponent,
-    TextureComponent,
-    SkyboxComponent,
-    OrbitControlsComponent
-  ],
-  imports: [BrowserModule],
-  exports: [ThreeComponent]
+    declarations: [
+        ThreeComponent,
+        RendererComponent,
+        SceneComponent,
+        PerspectiveCameraComponent,
+        PointLightComponent,
+        SphereComponent,
+        VRControlsComponent,
+        TextureComponent,
+        SkyboxComponent,
+        OrbitControlsComponent
+    ],
+    imports: [BrowserModule],
+    exports: [ThreeComponent]
 })
 export class ThreeModule { }

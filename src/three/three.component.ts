@@ -1,8 +1,8 @@
 import { Input, Component, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'three',
-  template: `
+    selector: 'three',
+    template: `
     <three-renderer
       [isVRMode]="isVRMode"
       [height]="height"
@@ -37,29 +37,29 @@ import { Input, Component, HostListener } from '@angular/core';
 })
 export class ThreeComponent {
 
-  @Input() ngModel: any;
-  @Input() image: any;
+    @Input() ngModel: any;
+    @Input() image: any;
 
-  @Input() height: number;
-  @Input() width: number;
-  @Input() isVRMode: boolean = true;
+    @Input() height: number;
+    @Input() width: number;
+    @Input() isVRMode: boolean = true;
 
-  ngOnInit() {
-    this.resetWidthHeight();
-  }
-
-  ngOnChanges(changes) {
-    if(changes.ngModel && changes.ngModel.currentValue) {
-      console.log('changes', changes);
+    ngOnInit() {
+        this.resetWidthHeight();
     }
-  }
 
-  @HostListener('window:resize')
-  @HostListener('window:vrdisplaypresentchange')
-  resetWidthHeight() {
-    this.height = window.innerHeight;
-    this.width = window.innerWidth;
-    console.log('window resize', this.height, this.width);
-  }
+    ngOnChanges(changes) {
+        if (changes.ngModel && changes.ngModel.currentValue) {
+            console.log('changes', changes);
+        }
+    }
+
+    @HostListener('window:resize')
+    @HostListener('window:vrdisplaypresentchange')
+    resetWidthHeight() {
+        this.height = window.innerHeight;
+        this.width = window.innerWidth;
+        console.log('window resize', this.height, this.width);
+    }
 
 }

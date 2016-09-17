@@ -4,10 +4,10 @@ import { bootloader } from '@angularclass/hmr';
 import { AppModule } from './app/app.module';
 
 export function main(): Promise<any> {
-  return platformBrowserDynamic()
-    .bootstrapModule(AppModule)
-    .catch(err => console.error(err));
+    return platformBrowserDynamic()
+        .bootstrapModule(AppModule)
+        .catch(err => console.error(err));
 }
 
-if(HMR) bootloader(main);
-if(!HMR) main();
+if (HMR) bootloader(main);
+if (!HMR) main();

@@ -67,10 +67,10 @@ function webpackConfig(options = {}) {
         loader: 'source-map',
         exclude: /(node_modules)/
       }
-      /* {
-        test: /\.ts$/,
-        loader: 'tslint'
-      } */
+        /* {
+          test: /\.ts$/,
+          loader: 'tslint'
+        } */
       ],
       loaders: [{
         test: /\.ts$/,
@@ -137,7 +137,7 @@ function webpackConfig(options = {}) {
     }
   };
 
-  if(ENV === 'production') {
+  if (ENV === 'production') {
     config.plugins.push(new HtmlWebpackPlugin({
       template: './index.html',
       inject: false

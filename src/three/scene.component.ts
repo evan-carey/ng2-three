@@ -11,37 +11,37 @@ import { SkyboxComponent } from './objects/skybox.component';
 @Directive({ selector: 'three-scene' })
 export class SceneComponent {
 
-  @ContentChild(PerspectiveCameraComponent) cameraComp: any;
-  @ContentChildren(PointLightComponent) lightComps: any;
+    @ContentChild(PerspectiveCameraComponent) cameraComp: any;
+    @ContentChildren(PointLightComponent) lightComps: any;
 
-  @ContentChildren(SphereComponent) sphereComps: any;
-  @ContentChildren(TextureComponent) textureComps: any;
-  @ContentChild(SkyboxComponent) skyboxComp: any;
+    @ContentChildren(SphereComponent) sphereComps: any;
+    @ContentChildren(TextureComponent) textureComps: any;
+    @ContentChild(SkyboxComponent) skyboxComp: any;
 
-  scene: THREE.Scene = new THREE.Scene();
+    scene: THREE.Scene = new THREE.Scene();
 
-  get camera() {
-    return this.cameraComp.camera;
-  }
-
-  ngAfterContentInit() {
-    this.camera.lookAt(this.scene.position);
-    this.scene.add(this.camera);
-
-    const meshes = [
-      this.skyboxComp,
-      ...this.lightComps.toArray(),
-      ...this.sphereComps.toArray(),
-      ...this.textureComps.toArray()
-    ];
-
-    for(let mesh of meshes) {
-      if(mesh.object) {
-        this.scene.add(mesh.object);
-      } else if(mesh.attachScene) {
-        mesh.attachScene(this.scene);
-      }
+    get camera() {
+        return this.cameraComp.camera;
     }
-  }
+
+    ngAfterContentInit() {
+        this.camera.lookAt(this.scene.position);
+        this.scene.add(this.camera);
+
+        const meshes = [
+            this.skyboxComp,
+            ...this.lightComps.toArray(),
+            ...this.sphereComps.toArray(),
+            ...this.textureComps.toArray()
+        ];
+
+        for (let mesh of meshes) {
+            if (mesh.object) {
+                this.scene.add(mesh.object);
+            } else if (mesh.attachScene) {
+                mesh.attachScene(this.scene);
+            }
+        }
+    }
 
 }

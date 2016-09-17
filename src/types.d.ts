@@ -11,14 +11,14 @@ declare var HMR: boolean;
 
 // Add Extra
 interface ErrorStackTraceLimit {
-  stackTraceLimit: number;
+    stackTraceLimit: number;
 }
 
-interface ErrorConstructor extends ErrorStackTraceLimit {}
+interface ErrorConstructor extends ErrorStackTraceLimit { }
 
 interface VRNavigator {
-  getVRDisplays: any;
-  getVRDevices: any;
+    getVRDisplays: any;
+    getVRDevices: any;
 }
 
-interface Navigator extends VRNavigator {}
+interface Navigator extends VRNavigator { }

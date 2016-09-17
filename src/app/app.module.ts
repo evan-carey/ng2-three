@@ -9,24 +9,24 @@ import { MusicService } from './services/music.service';
 import { ThreeModule } from '../three/three.module';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, ThreeModule],
-  providers: [VoiceService, MusicService],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent],
+    imports: [BrowserModule, ThreeModule],
+    providers: [VoiceService, MusicService],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 
-  constructor(private appRef: ApplicationRef) {
-  }
+    constructor(private appRef: ApplicationRef) {
+    }
 
-  hmrOnDestroy(store) {
-    const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
-    store.disposeOldHosts = createNewHosts(cmpLocation);
-    removeNgStyles();
-  }
+    hmrOnDestroy(store) {
+        const cmpLocation = this.appRef.components.map(cmp => cmp.location.nativeElement);
+        store.disposeOldHosts = createNewHosts(cmpLocation);
+        removeNgStyles();
+    }
 
-  hmrAfterDestroy(store) {
-    store.disposeOldHosts();
-    delete store.disposeOldHosts;
-  }
+    hmrAfterDestroy(store) {
+        store.disposeOldHosts();
+        delete store.disposeOldHosts;
+    }
 }

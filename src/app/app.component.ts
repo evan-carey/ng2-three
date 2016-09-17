@@ -1,11 +1,11 @@
 import {
-  Component,
-  trigger,
-  transition,
-  animate,
-  style,
-  state,
-  ElementRef
+    Component,
+    trigger,
+    transition,
+    animate,
+    style,
+    state,
+    ElementRef
 } from '@angular/core';
 
 import { VoiceService } from './services/voice.service';
@@ -14,8 +14,8 @@ import { requestFullScreen } from '../utils/fullscreen';
 import './app.scss';
 
 @Component({
-  selector: 'app',
-  template: `
+    selector: 'app',
+    template: `
     <main>
       <header [@searchTransition]="feedback ? 'active' : 'inactive'">
         <h1>
@@ -57,67 +57,67 @@ import './app.scss';
       </three>
     </main>
   `,
-  animations: [
-    trigger('searchTransition', [
-      state('active', style({ top: '10%' })),
-      state('inactive', style({ top: '50%' })),
-      transition('* => active', [
-        animate('200ms ease-in')
-      ]),
-      transition('* => inactive', [
-        animate('200ms ease-out')
-      ])
-    ])
-  ]
+    animations: [
+        trigger('searchTransition', [
+            state('active', style({ top: '10%' })),
+            state('inactive', style({ top: '50%' })),
+            transition('* => active', [
+                animate('200ms ease-in')
+            ]),
+            transition('* => inactive', [
+                animate('200ms ease-out')
+            ])
+        ])
+    ]
 })
 export class AppComponent {
 
-  image: any;
-  audioData: any;
-  isFullScreen: boolean = false;
-  isVRMode: boolean = false;
-  feedback: string = '';
-  supportsVR: boolean = false;
+    image: any;
+    audioData: any;
+    isFullScreen: boolean = false;
+    isVRMode: boolean = false;
+    feedback: string = '';
+    supportsVR: boolean = false;
 
-  getVRSupport(): void {
-    if(navigator.getVRDisplays === undefined || navigator.getVRDevices === undefined) {
-      this.supportsVR = false;
-      this.isVRMode = false;
-      return;
+    getVRSupport(): void {
+        if (navigator.getVRDisplays === undefined || navigator.getVRDevices === undefined) {
+            this.supportsVR = false;
+            this.isVRMode = false;
+            return;
+        }
+
+        navigator.getVRDisplays().then((displays) => {
+            if (displays.length) {
+                this.supportsVR = true;
+                this.isVRMode = true;
+            }
+        });
     }
 
-    navigator.getVRDisplays().then((displays) => {
-      if(displays.length) {
-        this.supportsVR = true;
-        this.isVRMode = true;
-      }
-    });
-  }
+    constructor(private voiceSvc: VoiceService,
+        private musicSvc: MusicService,
+        private element: ElementRef) {
+        this.getVRSupport();
 
-  constructor(private voiceSvc: VoiceService,
-              private musicSvc: MusicService,
-              private element: ElementRef) {
-    this.getVRSupport();
+        this.voiceSvc.onCommand.subscribe((event) => {
+            if (event.type === 'play') this.musicSvc.search(event.value);
+            if (event.type === 'stop') this.musicSvc.stop();
+        });
 
-    this.voiceSvc.onCommand.subscribe((event) => {
-      if(event.type === 'play') this.musicSvc.search(event.value);
-      if(event.type === 'stop') this.musicSvc.stop();
-    });
-
-    this.musicSvc.onPlay.subscribe(({ track, audio }) => {
-      this.feedback = `Playing "${track.name}" by ${track.artist}`;
-      this.audioData = audio;
-      this.image = track.album;
-      this.voiceSvc.annyang.abort();
-    });
-  }
-
-  toggleFullScreen(changes) {
-    this.isFullScreen = !this.isFullScreen;
-
-    if(!this.isFullScreen) {
-      requestFullScreen(this.element.nativeElement);
+        this.musicSvc.onPlay.subscribe(({ track, audio }) => {
+            this.feedback = `Playing "${track.name}" by ${track.artist}`;
+            this.audioData = audio;
+            this.image = track.album;
+            this.voiceSvc.annyang.abort();
+        });
     }
-  }
+
+    toggleFullScreen(changes) {
+        this.isFullScreen = !this.isFullScreen;
+
+        if (!this.isFullScreen) {
+            requestFullScreen(this.element.nativeElement);
+        }
+    }
 
 }
